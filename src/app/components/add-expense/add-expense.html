@@ -1,47 +1,48 @@
-<div class="container mt-4">
-  <div class="card p-4 shadow-sm">
-    <h3 class="mb-3">Add Expense</h3>
+<div class="page">
+  <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+    <h2>Add Expense</h2>
 
-    <form [formGroup]="expenseForm" (ngSubmit)="submitExpense()">
-      <!-- Title -->
-      <div class="mb-3">
-        <label class="form-label">Title</label>
-        <input class="form-control" formControlName="title" />
-        <small class="text-danger" *ngIf="control('title').touched && control('title').invalid">
-          Title is required (min 3 chars)
-        </small>
-      </div>
+    <label>
+      Title
+      <input formControlName="title" placeholder="Please Enter Title" />
+      @if (control('title').touched && control('title').invalid) {
+      <small>Minimum 3 characters</small>
+      }
+    </label>
 
-      <!-- Amount -->
-      <div class="mb-3">
-        <label class="form-label">Amount</label>
-        <input type="number" class="form-control" formControlName="amount" />
-        <small class="text-danger" *ngIf="control('amount').touched && control('amount').invalid">
-          Amount must be greater than 0
-        </small>
-      </div>
+    <label>
+      Category
+      <select formControlName="category">
+        @for (c of categories; track c) {
+        <option [value]="c">{{ c }}</option>
+        }
+      </select>
+    </label>
 
-      <!-- Category -->
-      <div class="mb-3">
-        <label class="form-label">Category</label>
-        <select class="form-select" formControlName="category">
-          <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
-        </select>
-      </div>
+    <label>
+      Type
+      <select formControlName="type">
+        @for (t of types; track t) {
+        <option [value]="t">{{ t }}</option>
+        }
+      </select>
+    </label>
 
-      <!-- Date -->
-      <div class="mb-3">
-        <label class="form-label">Date</label>
-        <input type="date" class="form-control" formControlName="date" />
-      </div>
+    <label>
+      Due Date
+      <input type="date" formControlName="dueDate" />
+    </label>
 
-      <button
-        class="btn btn-primary"
-        type="submit"
-        [disabled]="expenseForm.invalid || isSubmitting()"
-      >
-        {{ isSubmitting() ? 'Saving...' : 'Add Expense' }}
-      </button>
-    </form>
-  </div>
+    <label>
+      Amount
+      <input type="text" formControlName="amount" value="0" placeholder="Please Enter Amount" />
+      @if (control('amount').touched && control('amount').invalid) {
+      <small>Amount must be greater than 0</small>
+      }
+    </label>
+
+    <button type="submit" [disabled]="form.invalid || isSubmitting()">
+      {{ isSubmitting() ? 'Saving...' : 'Add Expense' }}
+    </button>
+  </form>
 </div>

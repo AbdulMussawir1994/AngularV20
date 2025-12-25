@@ -7,13 +7,13 @@ import { App } from './app';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
-import { AddExpenseComponent } from './components/add-expense/add-expense';
+import { AddExpense } from './components/add-expense/add-expense';
 
 
 @NgModule({
   declarations: [
     App,
-    AddExpenseComponent
+    AddExpense
   ],
   imports: [
     BrowserModule,
