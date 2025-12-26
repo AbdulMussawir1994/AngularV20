@@ -1,27 +1,18 @@
 export type ExpenseCategory = 'Home' | 'Personal' | 'Family' | 'Other';
 export type ExpenseType = 'Prepaid' | 'Postpaid';
 
-export interface Expense {
-  readonly id: number;
-  readonly title: string;
-  readonly dueDate: Date;
-  readonly type: ExpenseType;
-  readonly amount: string;
-  readonly category: ExpenseCategory;
-}
-
 export interface ExpenseFormValue {
   title: string;
+  amount: number;
+  category: ExpenseCategory | '';
   dueDate: string;
-  type: ExpenseType;
-  amount: string;
-  category: ExpenseCategory;
+  type: ExpenseType | '';
 }
 
 export interface CreateExpenseDto {
   title: string;
+  amount: number;
+  category: ExpenseCategory;
   dueDate: string;
   type: ExpenseType;
-  amount: string;
-  category: ExpenseCategory;
 }
