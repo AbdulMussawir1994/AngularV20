@@ -5,70 +5,79 @@
 }
 
 <div class="auth-wrapper">
+  <ul class="colorlib-bubbles">
+    @for (b of bubbles; track $index) {
+    <li></li>
+    }
+  </ul>
   <div class="bubble-wrapper">
     <div class="auth-card">
-      <h1 style="font-family: 'Callisto MT';">Add Expense</h1>
+      <h1>Add Expense</h1>
 
       <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-        <input type="text" placeholder="Title" formControlName="title" />
-        <p class="form-error" [class.hidden]="!isInvalid('title')">
-          {{ error('title') }}
-        </p>
-
-        <input type="text" placeholder="Amount" formControlName="amount" />
-        <p class="form-error" [class.hidden]="!isInvalid('amount')">
-          {{ error('amount') }}
-        </p>
-
-        <select formControlName="category">
-          <option value="" disabled>Select Category</option>
-          @for (c of categories; track c) {
-          <option [value]="c">{{ c }}</option>
-          }
-        </select>
-        <p class="form-error" [class.hidden]="!isInvalid('category')">
-          {{ error('category') }}
-        </p>
-
-        <select formControlName="type">
-          <option value="" disabled>Select Type</option>
-          @for (t of types; track t) {
-          <option [value]="t">{{ t }}</option>
-          }
-        </select>
-        <p class="form-error" [class.hidden]="!isInvalid('type')">
-          {{ error('type') }}
-        </p>
-
-        <!-- <select formControlName="category">
-  <option value="" disabled>Select Category</option>
-  <option *ngFor="let c of categories" [value]="c">
-    {{ c }}
-  </option>
-</select> -->
+        <!-- Title -->
         <div class="form-group">
           <div class="input-wrapper">
-            <input id="dueDate" type="date" formControlName="dueDate" />
-            <label for="dueDate">Due Date</label>
+            <input class="input" type="text" formControlName="title" placeholder=" " />
+            <label>Title</label>
           </div>
+          <p class="form-error" [class.hidden]="!isInvalid('title')">
+            {{ error('title') }}
+          </p>
+        </div>
 
-          @if (isInvalid('dueDate')) {
+        <!-- Amount -->
+        <div class="form-group">
+          <div class="input-wrapper">
+            <input class="input" type="text" formControlName="amount" placeholder=" " />
+            <label>Amount</label>
+          </div>
+          <p class="form-error" [class.hidden]="!isInvalid('amount')">
+            {{ error('amount') }}
+          </p>
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+          <select class="select" formControlName="category">
+            <option value="" disabled>Select Category</option>
+            @for (c of categories; track c) {
+            <option [value]="c">{{ c }}</option>
+            }
+          </select>
+          <p class="form-error" [class.hidden]="!isInvalid('category')">
+            {{ error('category') }}
+          </p>
+        </div>
+
+        <!-- Type -->
+        <div class="form-group">
+          <select class="select" formControlName="type">
+            <option value="" disabled>Select Type</option>
+            @for (t of types; track t) {
+            <option [value]="t">{{ t }}</option>
+            }
+          </select>
+          <p class="form-error" [class.hidden]="!isInvalid('type')">
+            {{ error('type') }}
+          </p>
+        </div>
+
+        <!-- Due Date -->
+        <div class="form-group">
+          <div class="input-wrapper">
+            <input class="input" type="date" formControlName="dueDate" />
+            <label>Due Date</label>
+          </div>
           <p class="form-error" [class.hidden]="!isInvalid('dueDate')">
             {{ error('dueDate') }}
           </p>
-          }
         </div>
 
         <button class="submit-btn" type="submit" [disabled]="form.invalid || submitting()">
           {{ submitting() ? 'Saving...' : 'Save Expense' }}
         </button>
       </form>
-
-      <ul class="colorlib-bubbles">
-        @for (b of bubbles; track $index) {
-        <li></li>
-        }
-      </ul>
     </div>
   </div>
 </div>
