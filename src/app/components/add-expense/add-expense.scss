@@ -24,7 +24,7 @@
    Card
 ================================ */
 .auth-card {
-  background: #1856d3;
+  background: #325eb7;
   padding: 2rem 2.5rem;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -131,14 +131,85 @@
   transition: background 0.3s ease;
 
   &:hover:not(:disabled) {
-    background-color: #125aa3;
+    background-color: #1d20db;
   }
 
   &:disabled {
-    background-color: #90caf9;
+    background-color: #0c75ca;
     cursor: not-allowed;
   }
 }
+
+.form-group {
+  margin-bottom: 1.6rem;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Date Input */
+.input-wrapper input[type='date'] {
+  width: 100%;
+  height: 52px;
+  padding: 14px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* Dark mode calendar icon */
+input[type='date'] {
+  color-scheme: dark;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+/* Label */
+.input-wrapper label {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background: #1856d3; /* auth-card background */
+  padding: 0 6px;
+}
+
+/* Focus & Filled State */
+.input-wrapper input:focus,
+.input-wrapper input:not(:placeholder-shown) {
+  background: none;
+}
+
+/* Float label up */
+.input-wrapper input:focus + label,
+.input-wrapper input:valid + label {
+  top: -7px;
+  font-size: 0.7rem;
+ // color: #00c6ff;
+}
+
+/* Error state */
+.form-group.error input,
+input.ng-invalid.ng-touched {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.25);
+}
+
 
 /* ==============================
    Footer

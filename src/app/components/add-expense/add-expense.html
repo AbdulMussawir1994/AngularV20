@@ -7,7 +7,7 @@
 <div class="auth-wrapper">
   <div class="bubble-wrapper">
     <div class="auth-card">
-      <h1>Add Expense</h1>
+      <h1 style="font-family: 'Callisto MT';">Add Expense</h1>
 
       <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
         <input type="text" placeholder="Title" formControlName="title" />
@@ -30,26 +30,36 @@
           {{ error('category') }}
         </p>
 
-        <!-- <select formControlName="category">
-  <option value="" disabled>Select Category</option>
-  <option *ngFor="let c of categories" [value]="c">
-    {{ c }}
-  </option>
-</select> -->
-
-        <input type="date" formControlName="dueDate" />
-
         <select formControlName="type">
           <option value="" disabled>Select Type</option>
           @for (t of types; track t) {
           <option [value]="t">{{ t }}</option>
           }
         </select>
-                <p class="form-error" [class.hidden]="!isInvalid('type')">
+        <p class="form-error" [class.hidden]="!isInvalid('type')">
           {{ error('type') }}
         </p>
 
-        <button class="submit-btn" type="submit" [disabled]="submitting()">
+        <!-- <select formControlName="category">
+  <option value="" disabled>Select Category</option>
+  <option *ngFor="let c of categories" [value]="c">
+    {{ c }}
+  </option>
+</select> -->
+        <div class="form-group">
+          <div class="input-wrapper">
+            <input id="dueDate" type="date" formControlName="dueDate" />
+            <label for="dueDate">Due Date</label>
+          </div>
+
+          @if (isInvalid('dueDate')) {
+          <p class="form-error" [class.hidden]="!isInvalid('dueDate')">
+            {{ error('dueDate') }}
+          </p>
+          }
+        </div>
+
+        <button class="submit-btn" type="submit" [disabled]="form.invalid || submitting()">
           {{ submitting() ? 'Saving...' : 'Save Expense' }}
         </button>
       </form>

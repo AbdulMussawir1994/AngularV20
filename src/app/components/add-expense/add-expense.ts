@@ -7,6 +7,7 @@ import {
   ExpenseFormValue,
   CreateExpenseDto,
 } from '../../models/expense.model';
+import { noPastDateValidator } from '../../extensions/noPastDateValidator';
 
 type ExpenseForm = FormGroup<{
   title: FormControl<string>;
@@ -30,9 +31,11 @@ export class AddExpense {
   readonly submitting = signal(false);
   readonly loading = signal(false);
 
-  readonly categories: readonly ExpenseCategory[] = ['Home', 'Personal', 'Family', 'Other'];
+  today = this.getToday();
 
-  readonly types: readonly ExpenseType[] = ['Prepaid', 'Postpaid'];
+  categories: readonly ExpenseCategory[] = ['Home', 'Personal', 'Family', 'Other'];
+
+  types: readonly ExpenseType[] = ['Prepaid', 'Postpaid'];
 
   readonly bubbles = Array.from({ length: 10 });
 
@@ -48,13 +51,18 @@ export class AddExpense {
     // ✅ EXPLICIT GENERIC TYPE
     category: this.fb.control<ExpenseCategory | ''>('', Validators.required),
 
-    dueDate: this.fb.control(this.today(), Validators.required),
+    dueDate: this.fb.control(this.today, [Validators.required,noPastDateValidator(this.today)]),
 
     type: this.fb.control<ExpenseType | ''>('', Validators.required),
   });
 
   submit(): void {
+
+    console.log(this.submitting());
+
     if (this.form.invalid || this.submitting()) {
+      console.log('invalid',this.form.invalid);
+      debugger;
       this.form.markAllAsTouched();
       return;
     }
@@ -72,6 +80,11 @@ export class AddExpense {
     }, 800);
   }
 
+  private getToday(): string {
+  const date = new Date();
+  return date.toISOString().split('T')[0];
+}
+
   isInvalid(field: keyof ExpenseFormValue): boolean {
     const control = this.form.controls[field];
     return control.invalid && control.touched;
@@ -83,6 +96,7 @@ export class AddExpense {
     if (c.hasError('required')) return 'This field is required';
     if (c.hasError('minlength')) return 'Minimum 3 characters required';
     if (c.hasError('min')) return 'Amount must be greater than 0';
+    if (c.hasError('pastDate')) return 'Previous date is not allowed';
 
     return '';
   }
@@ -97,7 +111,4 @@ export class AddExpense {
     };
   }
 
-  private today(): string {
-    return new Date().toISOString().slice(0, 10);
-  }
 }
