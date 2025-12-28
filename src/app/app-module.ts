@@ -1,20 +1,17 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { MaterialModule } from '../../material-module';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { AddExpense } from './components/add-expense/add-expense';
-
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    App,
-    AddExpense
-  ],
+  declarations: [App, AddExpense],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,12 +30,12 @@ import { AddExpense } from './components/add-expense/add-expense';
       autoDismiss: true,
       enableHtml: true,
     }),
-    
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch()), // ✅ REQUIRED
   ],
-  bootstrap: [App]
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}

@@ -29,7 +29,7 @@
         <!-- Amount -->
         <div class="form-group">
           <div class="input-wrapper">
-            <input class="input" type="text" formControlName="amount" placeholder=" " />
+            <input class="input" type="text" formControlName="amount" placeholder=" " (input)="onAmountInput($event)" />
             <label>Amount</label>
           </div>
           <p class="form-error" [class.hidden]="!isInvalid('amount')">
@@ -71,6 +71,17 @@
           </div>
           <p class="form-error" [class.hidden]="!isInvalid('dueDate')">
             {{ error('dueDate') }}
+          </p>
+        </div>
+
+        <!-- Description -->
+         <div class="form-group">
+          <div class="input-wrapper">
+            <textarea class="input" id="textAreaInput" type="text" formControlName="description" placeholder=" " ></textarea>
+            <label>Description</label>
+          </div>
+          <p class="form-error" [class.hidden]="!isInvalid('description')">
+            {{ error('description') }}
           </p>
         </div>
 

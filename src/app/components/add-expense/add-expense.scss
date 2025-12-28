@@ -82,6 +82,10 @@ form {
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+#textAreaInput{
+  min-height: 50px;
+}
+
 .input:focus,
 .select:focus {
   border-color: #00c6ff;

@@ -3,10 +3,11 @@ export type ExpenseType = 'Prepaid' | 'Postpaid';
 
 export interface ExpenseFormValue {
   title: string;
-  amount: number;
+  amount: string;
   category: ExpenseCategory | '';
   dueDate: string;
   type: ExpenseType | '';
+  description: string;
 }
 
 export interface CreateExpenseDto {
@@ -15,4 +16,14 @@ export interface CreateExpenseDto {
   category: ExpenseCategory;
   dueDate: string;
   type: ExpenseType;
+  description?: string;
+}
+
+export interface AddExpenseBody {
+  title: string;
+  amount: number;
+  category: string;
+  type: string;
+  dueDate: string; // yyyy-MM-dd or ISO
+  description: string;
 }
